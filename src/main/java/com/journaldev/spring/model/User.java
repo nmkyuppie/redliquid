@@ -2,7 +2,9 @@ package com.journaldev.spring.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -11,6 +13,8 @@ public class User {
 
 
 	@Id
+	@GeneratedValue(generator = "my_gen")
+	@SequenceGenerator(name = "my_gen", sequenceName = "serial")
 	@Column(name="id")
 	int id;
 	@Column(name="name")

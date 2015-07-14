@@ -63,5 +63,4 @@ public class PersonDAOImpl implements PersonDAO {
 		}
 		logger.info("Person deleted successfully, person details="+p);
 	}
-
 }

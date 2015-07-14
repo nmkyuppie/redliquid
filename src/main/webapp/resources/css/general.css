@@ -10,7 +10,7 @@ textarea,input,select{
 
 @font-face {
   font-family: 'icons';
-  src: url('fonts/icomoon.ttf') format('truetype'); /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
+  src: url('fonts/icomoon.ttf') format('truetype'); /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3ï¿½5 */
 }
 
 .icon{
@@ -72,8 +72,8 @@ label{
 }
 
 input{
-	border: 1px dashed #121212;
-    color: #121212;
+	border: 0px dashed #121212;
+    color: #E63386;
     font-family: Tahoma,Arial,sans-serif;
     line-height: 30px;
     width:300px;
@@ -85,8 +85,9 @@ input[type=submit]{
 }
 
 select{
-	border: 1px dashed #121212;
-    color: #121212;
+	border: 0px dashed #121212;
+	background:#fff;
+    color: #E63386;
     font-family: Tahoma,Arial,sans-serif;
     height: 32px;
     width:304px;

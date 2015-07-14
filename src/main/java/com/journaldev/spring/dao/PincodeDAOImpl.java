@@ -32,7 +32,7 @@ public class PincodeDAOImpl implements PincodeDAO{
 		Session session = this.sessionFactory.getCurrentSession();
 
 //		List<Pincode> statesList = session.createQuery("from Pincode where statename='TAMIL NADU'").list();
-		List<Pincode> statesList = session.createSQLQuery("select distinct statename from Pincode").list();
+		List<Pincode> statesList = session.createSQLQuery("select distinct statename from Pincode and statename <> ''").list();
 		Set<Pincode> uList=new HashSet<Pincode>(statesList);
 		
 
@@ -61,7 +61,7 @@ public class PincodeDAOImpl implements PincodeDAO{
 	public List<Pincode> getDistrict(String state) {
 		Session session = this.sessionFactory.getCurrentSession();
 
-		List<Pincode> districtList = session.createSQLQuery("select distinct districtname from Pincode where statename=?").setParameter(0, state).list();
+		List<Pincode> districtList = session.createSQLQuery("select distinct districtname from Pincode where statename=? and districtname <> ''").setParameter(0, state).list();
 //		@SuppressWarnings("unchecked")
 //		List<Pincode> districtList = session.createQuery("from Pincode where statename=?").setParameter(0, state).set.list();
 		TreeSet<Pincode> set = new TreeSet<Pincode>(districtList);
@@ -78,7 +78,8 @@ public class PincodeDAOImpl implements PincodeDAO{
 	public List<Pincode> getCity(String district) {
 		Session session = this.sessionFactory.getCurrentSession();
 
-		List<Pincode> cityList = session.createSQLQuery("select distinct taluk from Pincode where districtname=?").setParameter(0, district).list();
+		List<Pincode> cityList = session.createSQLQuery("select distinct taluk from Pincode where districtname=? and taluk <> ''").setParameter(0, district.trim()).list();
+		System.out.println("quey "+cityList.size());
 //		@SuppressWarnings("unchecked")
 //		List<Pincode> districtList = session.createQuery("from Pincode where statename=?").setParameter(0, state).set.list();
 		TreeSet<Pincode> set = new TreeSet<Pincode>(cityList);

@@ -12,7 +12,7 @@
 <script>
   $(function() {
 	  var h = window.innerHeight;
-	  document.getElementById("searchContent").style.height = (h-200)+"px";
+// 	  document.getElementById("searchContent").style.height = (h-200)+"px";
   });
   </script>
 <title>Home</title>
@@ -33,9 +33,9 @@
 			<a onclick="searchBoxVisibility()"><span class="icon">&#xe986;</span>&nbsp;Search</a>
 		</div>
 	</div>
-	<form:form method="post" commandName="user">
+	<form:form method="post" commandName="user" style="margin:0 auto;width:750px;">
 	<div id="searchBox" class="search" align="center">
-					<label style="min-width:100px;" for="bloodgroup">Search donar</label><form:select class="search" style="width:100px;" path="bloodgroup" title="Blood group" onchange="getState()">
+					<label style="min-width:100px;" for="bloodgroup">Search donar</label><form:select style="width:100px;" path="bloodgroup" title="Blood group" onchange="getState()">
 						</form:select><form:select  style="width:200px;"  path="statename" title="State" onchange="getDistrict()">
 						</form:select><form:select style="width:200px;" path="districtname" title="District" onchange="getTaluk()">
 						</form:select><form:select style="width:200px;" title="City" path="talukname">

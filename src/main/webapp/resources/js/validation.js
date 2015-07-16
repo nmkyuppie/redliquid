@@ -246,7 +246,6 @@ var toggleCheckBox=function(){
 }
 
 var searchBoxVisibility=function(){
-	document.getElementById('searchBox').style.display="block";
-	document.getElementById('searchBox').style.marginTop="100px";
+	document.getElementById('searchBox').className = 'searchVisible';
 	document.getElementById('searchContent').style.marginTop="0px";
 }

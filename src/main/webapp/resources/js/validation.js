@@ -244,3 +244,9 @@ var toggleCheckBox=function(){
 		document.getElementById('availability').value="false";
 	}
 }
+
+var searchBoxVisibility=function(){
+	document.getElementById('searchBox').style.display="block";
+	document.getElementById('searchBox').style.marginTop="100px";
+	document.getElementById('searchContent').style.marginTop="0px";
+}

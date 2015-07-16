@@ -29,9 +29,12 @@
 		<div align="center" class="menu" title="Post your blood request">
 			<a href="request"><span class="icon">&#xe90b;</span>&nbsp;Request</a>
 		</div>
+		<div align="center" class="menu">
+			<a onclick="searchBoxVisibility()"><span class="icon">&#xe986;</span>&nbsp;Search</a>
+		</div>
 	</div>
 	<form:form method="post" commandName="user">
-	<div class="search" align="center">
+	<div id="searchBox" class="search" align="center">
 					<label style="min-width:100px;" for="bloodgroup">Search donar</label><form:select class="search" style="width:100px;" path="bloodgroup" title="Blood group" onchange="getState()">
 						</form:select><form:select  style="width:200px;"  path="statename" title="State" onchange="getDistrict()">
 						</form:select><form:select style="width:200px;" path="districtname" title="District" onchange="getTaluk()">

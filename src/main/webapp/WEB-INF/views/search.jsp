@@ -70,5 +70,14 @@
 			</table>
 		</c:if>
 	</div>
+	
+	<div id="pager" align="right" class="pagerBar">
+		<div align="center" class="pageNo">
+			<a href="login">Next</a>
+		</div>
+		<div align="center" class="pageNo">
+			<a href="login">Previous</a>
+		</div>
+	</div>
 </body>
 </html>

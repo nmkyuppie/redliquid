@@ -14,13 +14,13 @@
 <body onload="getState()">
 	<header>jingleee...</header>
 	<div align="right" class="menuBar">
-		<div align="center" class="menu">
+		<div align="center" class="menu" data-tooltip="Sign In" data-tooltip-position="bottom">
 			<a href="login"><span class="icon">&#xea13;</span>&nbsp;Sign In</a>
 		</div>
-		<div align="center" class="menu" title="Post your blood request">
+		<div align="center" class="menu" data-tooltip="Post your blood request" data-tooltip-position="bottom">
 			<a href="request"><span class="icon">&#xe90b;</span>&nbsp;Request</a>
 		</div>
-		<div align="center" class="menu">
+		<div align="center" class="menu" data-tooltip="Search donars" data-tooltip-position="bottom">
 			<a href="search"><span class="icon">&#xe986;</span>&nbsp;Search</a>
 		</div>
 	</div>
@@ -31,7 +31,7 @@
 
 			<table align="center">
 				<tr>
-					<td><label for="username">User Name</label><form:input path="username" placeholder="Name" /></td>
+					<td><label for="username" >User Name</label><form:input path="username" placeholder="Name" /></td>
 				</tr>
 				<tr>
 					<td><label for="email">Email id</label><form:input path="email" placeholder="Email id" /></td>

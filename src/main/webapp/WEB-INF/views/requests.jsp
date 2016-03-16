@@ -29,15 +29,15 @@
 		</ul>
 	</div>
 	<div align="right" class="menuBar">
-		<div align="center" class="menu" title="Post your blood request">
-			<a href="requests"><span class="icon">&#xe953;</span>&nbsp;Blood requests</a>
+		<div align="center" class="menu">
+			<a href="search"><span class="icon">&#xe986;</span>&nbsp;Search donars</a>
 		</div>
 	</div>
 	<div id="searchBox" class="search" align="center">
 	<table cellspacing=0 cellpadding=0 border=0>
 		<tr>
 			<td>
-			<label style="min-width:100px;" for="bloodgroup">Search donar</label>
+			<label style="min-width:100px;" for="bloodgroup">Search blood requests</label>
 			</td>
 			<td>
 			<select style="width:100px;" id="bloodgroup" title="Blood group" onchange="getState() "></select>
@@ -57,38 +57,8 @@
 		</tr>
 	</table>
 	
-	<iframe frameborder="0" src="searchByCriteria?pageNo=1" id="searchIframe" width="100%" height="450px"></iframe>
+	<iframe frameborder="0" src="requestsByCriteria?pageNo=1" id="searchIframe" width="100%" height="450px"></iframe>
 	
-	
-	<div id="pager" align="right" class="pagerBar">
-	
-			<%
-				int noOfPages=0; 
-				int totalCount=0;
-				totalCount=Integer.parseInt(request.getAttribute("totalcount").toString());
-				if(totalCount>10)
-					noOfPages=totalCount/10;
-				else
-					noOfPages=1;
-				if(totalCount%10!=0&&totalCount>9)
-					noOfPages++;
-			%>
-			<%
-			if(totalCount>10){
-			%>
-				<div align="center">
-					<button class="pageButton" id="nextButton" onClick=showNext();>Next 10</button>
-				</div>
-			<%}
-			if(totalCount>10){
-			%>
-				<div align="center">
-					<button class="pageButton disable" id="previousButton" onClick=showPrevious();>Previous 10</button>
-				</div>
-			<%} %>
-			<input type="hidden" value="1" id="pageNo" />
-			<input type="hidden" value=<%=noOfPages %> id="maxpageNo" />
-	</div>		
 	</div>
 </body>
 </html>

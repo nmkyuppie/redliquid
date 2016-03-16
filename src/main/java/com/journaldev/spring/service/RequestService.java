@@ -10,4 +10,7 @@ public interface RequestService {
 
 	List<Request> listRequests();
 
+	public Object getRequestsList(String bloodGroup, String stateName,
+			String districtName, String cityName, String pageNo, String pageSize);
+
 }

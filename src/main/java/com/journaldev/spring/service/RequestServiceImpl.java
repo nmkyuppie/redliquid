@@ -29,4 +29,11 @@ public class RequestServiceImpl implements RequestService	{
 		return this.requestDAO.listRequests();
 	}
 
+	@Override
+	@Transactional
+	public Object getRequestsList(String bloodGroup, String stateName,
+			String districtName, String cityName, String pageNo, String pageSize) {
+		return this.requestDAO.getRequestsList(bloodGroup.trim(),stateName.trim(),districtName.trim(),cityName.trim(),pageNo,pageSize);
+	}
+
 }

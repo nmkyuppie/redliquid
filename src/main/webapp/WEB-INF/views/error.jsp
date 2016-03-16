@@ -12,19 +12,22 @@
 <title>404 :: Page not found.</title>
 </head>
 <body>
-<header>jingleee...</header>
+	<header>jingleee...<span class="loginuser">
+		<span class="icon" onclick="showHeaderMenu();" style="cursor:pointer;padding: 10px;">&#xe9bf;</span></span>
+	</header>
+	<div id="headerMenu" class="headerMenu">
+		<ul>
+			<li onclick="location.assign('register')">Donar registration &nbsp;<span class="icon" style="cursor:pointer;">&#xe944;</span></li>
+			<li onclick="location.assign('request')">Post your request &nbsp;<span class="icon" style="cursor:pointer;">&#xe950;</span></li>
+			<li onclick="location.assign('login')">Edit profile &nbsp;<span class="icon" style="cursor:pointer;">&#xe907;</span></li>
+		</ul>
+	</div>
 	<div align="right" class="menuBar">
-		<div align="center" class="menu">
-			<a href="login"><span class="icon">&#xea13;</span>&nbsp;Sign In</a>
-		</div>
-		<div align="center" class="menu">
-			<a href="register"><span class="icon">&#xe905;</span>&nbsp;Sign Up</a>
-		</div>
 		<div align="center" class="menu" title="Post your blood request">
-			<a href="request"><span class="icon">&#xe90b;</span>&nbsp;Request</a>
+			<a href="request"><span class="icon">&#xe953;</span>&nbsp;Blood requests</a>
 		</div>
 		<div align="center" class="menu">
-			<a href="search"><span class="icon">&#xe986;</span>&nbsp;Search</a>
+			<a href="search"><span class="icon">&#xe986;</span>&nbsp;Search donars</a>
 		</div>
 	</div>
 	<div class="pageContent">

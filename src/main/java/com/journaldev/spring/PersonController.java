@@ -1,8 +1,16 @@
 package com.journaldev.spring;
 
+import java.security.InvalidKeyException;
+import java.security.Key;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.journaldev.spring.model.Person;
 import com.journaldev.spring.model.Pincode;
 import com.journaldev.spring.model.Register;
@@ -109,19 +118,38 @@ public class PersonController {
 	
     @RequestMapping(value= "/login",method = RequestMethod.POST)
     public String validateLogin(@ModelAttribute("login") User ud,
-            ModelMap model,HttpServletResponse response){
+            ModelMap model,HttpServletResponse response) throws Exception{
     	
+    	String key = "Redff0000Liquid!";
     	String returnString="login";
     	
     		if(this.userService.validate(ud)){
-    			Cookie cookie = new Cookie("redliquid_username", ud.getUsername());
+    			Key aesKey = new SecretKeySpec(key.getBytes(), "AES");
+    			Cipher cipher = Cipher.getInstance("AES");
+    			cipher.init(Cipher.ENCRYPT_MODE, aesKey);
+    			byte[] encrypted = cipher.doFinal(ud.getUsername().getBytes());
+    			System.err.println(new String(encrypted));
+    			cipher.init(Cipher.DECRYPT_MODE, aesKey);
+    			String decrypted = new String(cipher.doFinal(encrypted));
+    			System.err.println(decrypted);
+    			
+    			User u=this.userService.getUserDetail(ud.getUsername());
+    			
+    			Cookie cookie = new Cookie("redliquid_username", u.getUsername());
     			response.addCookie(cookie);
-    			returnString="search";
+    			returnString="empty";
         		model.addAttribute("sucessMsg", "Successfully logged in");
+
+        		model.addAttribute("listusers", this.userService.listUsers());
+//        		model.addAttribute("user", new User());
+//        		model.addAttribute("listusers", this.userService.listUsers().get("usersList"));
+        		model.addAttribute("totalcount", this.userService.listUsers().get("totalCount"));
     		}
     		else{
         		model.addAttribute("sucessMsg", "Login failed");
     		}
+    		
+
     	return returnString;
     }
     
@@ -134,7 +162,9 @@ public class PersonController {
 	@RequestMapping(value="/register",method=RequestMethod.POST)
 	public String register(@ModelAttribute("register") User u, ModelMap model){
 		this.userService.addUser(u);
-		return "register";
+		model.addAttribute("listusers", this.userService.listUsers());
+		model.addAttribute("totalcount", this.userService.listUsers().get("totalCount"));
+		return "search";
 	}
 	
 	@RequestMapping(value="/state",method=RequestMethod.POST)
@@ -164,16 +194,47 @@ public class PersonController {
     
 	@RequestMapping(value = "/search",method = RequestMethod.GET)
 	public String viewSearch(Model model, User u) {
-		model.addAttribute("user", new User());
 		model.addAttribute("listusers", this.userService.listUsers());
+//		model.addAttribute("user", new User());
+//		model.addAttribute("listusers", this.userService.listUsers().get("usersList"));
+		model.addAttribute("totalcount", this.userService.listUsers().get("totalCount"));
 		return "search";
+	}
+    
+	@RequestMapping(value = "/searchByCriteria",method = RequestMethod.GET)
+	public String searchByCriteria(
+			Model model,
+			@RequestParam(value="bloodGroup",required=false,defaultValue="-1") String  bloodGroup,
+			@RequestParam(value="stateName",required=false,defaultValue="-1") String stateName,
+			@RequestParam(value="districtName",required=false,defaultValue="-1") String districtName,
+			@RequestParam(value="cityName",required=false,defaultValue="-1") String cityName,
+			@RequestParam(value="pageNo",required=false,defaultValue="1") String pageNo,
+			@RequestParam(value="pageSize",required=false,defaultValue="10") String pageSize,
+			User u) {
+		pageSize="10";
+		model.addAttribute("listusers", this.userService.getSearchList(bloodGroup.trim(),stateName.trim(),districtName.trim(),cityName.trim(),pageNo,pageSize));
+		return "searchData";
+	}
+    
+	@RequestMapping(value = "/getTotalCount",method = RequestMethod.GET)
+	@ResponseBody
+	public String getTotalSearchCount(
+			@RequestParam(value="bloodGroup",required=false,defaultValue="-1") String  bloodGroup,
+			@RequestParam(value="stateName",required=false,defaultValue="-1") String stateName,
+			@RequestParam(value="districtName",required=false,defaultValue="-1") String districtName,
+			@RequestParam(value="cityName",required=false,defaultValue="-1") String cityName,
+			@RequestParam(value="pageNo",required=false,defaultValue="1") String pageNo,
+			@RequestParam(value="pageSize",required=false,defaultValue="10") String pageSize) {
+		
+		return ""+this.userService.getTotalCount(bloodGroup.trim(),stateName.trim(),districtName.trim(),cityName.trim(),pageNo,pageSize);
 	}
 	
 	
 	@RequestMapping(value="/search",method=RequestMethod.POST)
 	public String getSearchResult(@ModelAttribute("user") User u, ModelMap model){
-		model.addAttribute("user", new User());
-		model.addAttribute("listusers", this.userService.search(u));
+//		model.addAttribute("user", new User());
+//		model.addAttribute("listusers", this.userService.search(u).get("usersList"));
+//		model.addAttribute("totalcount", this.userService.search(u).get("totalCount"));
 		return "search";
 	}
     
@@ -187,6 +248,27 @@ public class PersonController {
 	public String storeRequest(@ModelAttribute("request") Request r, ModelMap model){
 		this.requestService.addRequest(r);
 		return "request";
+	}
+    
+
+	@RequestMapping(value = "/requests",method = RequestMethod.GET)
+	public String showRequests(Model model, Request r) {
+		return "requests";
+	}
+    
+	@RequestMapping(value = "/requestsByCriteria",method = RequestMethod.GET)
+	public String requestsByCriteria(
+			Model model,
+			@RequestParam(value="bloodGroup",required=false,defaultValue="-1") String  bloodGroup,
+			@RequestParam(value="stateName",required=false,defaultValue="-1") String stateName,
+			@RequestParam(value="districtName",required=false,defaultValue="-1") String districtName,
+			@RequestParam(value="cityName",required=false,defaultValue="-1") String cityName,
+			@RequestParam(value="pageNo",required=false,defaultValue="1") String pageNo,
+			@RequestParam(value="pageSize",required=false,defaultValue="10") String pageSize,
+			User u) {
+		pageSize="10";
+		model.addAttribute("listrequests", this.requestService.getRequestsList(bloodGroup.trim(),stateName.trim(),districtName.trim(),cityName.trim(),pageNo,pageSize));
+		return "requestsData";
 	}
     
 

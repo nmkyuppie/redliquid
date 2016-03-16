@@ -11,16 +11,22 @@
 <title>Login</title>
 </head>
 <body>
-	<header>jingleee...<span class="loginuser"><span class="icon">&#xe975;</span> ${cookie.redliquid_username.value} </span></header>
+	<header>jingleee...<span class="loginuser">
+		<span class="icon" onclick="showHeaderMenu();" style="cursor:pointer;padding: 10px;">&#xe9bf;</span></span>
+	</header>
+	<div id="headerMenu" class="headerMenu">
+		<ul>
+			<li onclick="location.assign('register')">Donar registration &nbsp;<span class="icon" style="cursor:pointer;">&#xe944;</span></li>
+			<li onclick="location.assign('request')">Post your request &nbsp;<span class="icon" style="cursor:pointer;">&#xe950;</span></li>
+			<li onclick="location.assign('login')">Edit profile &nbsp;<span class="icon" style="cursor:pointer;">&#xe907;</span></li>
+		</ul>
+	</div>
 	<div align="right" class="menuBar">
-		<div align="center" class="menu">
-			<a href="register"><span class="icon">&#xe905;</span>&nbsp;Sign Up</a>
-		</div>
 		<div align="center" class="menu" title="Post your blood request">
-			<a href="request"><span class="icon">&#xe90b;</span>&nbsp;Request</a>
+			<a href="request"><span class="icon">&#xe953;</span>&nbsp;Blood requests</a>
 		</div>
 		<div align="center" class="menu">
-			<a href="search"><span class="icon">&#xe986;</span>&nbsp;Search</a>
+			<a href="search"><span class="icon">&#xe986;</span>&nbsp;Search donars</a>
 		</div>
 	</div>
 	<div class="pageContent">
@@ -29,7 +35,7 @@
 
 			<table align="center">
 				<tr>
-					<td><form:label path="username">Username</form:label><form:input path="username" placeholder="Username" /></td>
+					<td><form:label path="username">Email id</form:label><form:input path="username" placeholder="Email id" /></td>
 				</tr>
 				<tr>
 					<td><form:label path="password">Password</form:label><form:input path="password" placeholder="Password" /></td>
@@ -45,8 +51,8 @@
 					<td><div align="center" id="error" class="error">${sucessMsg}</div></td>
 				</tr>
 			</table>
-
 		</form:form>
+		
 	</div>
 </body>
 </html>

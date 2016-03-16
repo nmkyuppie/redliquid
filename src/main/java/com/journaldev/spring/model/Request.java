@@ -1,5 +1,8 @@
 package com.journaldev.spring.model;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -10,7 +13,7 @@ import javax.persistence.Table;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name="request")
+@Table(name="bloodrequest")
 public class Request {
 	
 	@Id
@@ -90,8 +93,16 @@ public class Request {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public Date getDate() {
+
+	public Date getDate() throws ParseException{
 		return date;
+	}
+
+	public String getDateString() throws ParseException{
+		SimpleDateFormat sdf=new SimpleDateFormat("MMM dd, yyyy");
+		String tempDate=sdf.format(date);
+		date=sdf.parse(tempDate);
+		return tempDate;
 	}
 	public void setDate(Date date) {
 		this.date = date;

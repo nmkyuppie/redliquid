@@ -168,6 +168,10 @@ var getBloodGroup=function(){
 }
 
 var getState=function(){
+	$('#statename').empty();
+	$('#districtname').empty();
+	$('#talukname').empty();
+//	setIframeSrc(1);
 	$.ajax({
         type: "POST",
         url: "state",
@@ -187,6 +191,9 @@ var getState=function(){
 }
 
 var getDistrict=function(){
+	$('#districtname').empty();
+	$('#talukname').empty();
+//	setIframeSrc(1);
 	var state = $('#statename').val();
 	$.ajax({
         type: "POST",
@@ -206,6 +213,8 @@ var getDistrict=function(){
 }
 
 var getTaluk=function(){
+	$('#talukname').empty();
+//	setIframeSrc(1);
 	var district = $('#districtname').val();
 	$.ajax({
         type: "POST",
@@ -245,7 +254,188 @@ var toggleCheckBox=function(){
 	}
 }
 
-var searchBoxVisibility=function(){
-	document.getElementById('searchBox').className = 'searchVisible';
-	document.getElementById('searchContent').style.marginTop="0px";
+var setIframeSrc=function(pageNo){
+		var bloodGroup=document.getElementById('bloodgroup').value;
+		var stateName = document.getElementById('statename').value;
+		var districtName = document.getElementById('districtname').value;
+		var cityName = document.getElementById('talukname').value;
+		var url="";
+		if(bloodGroup!=""){
+			url+="&bloodGroup="+bloodGroup;
+		}
+		if(stateName!=""){
+			url+="&stateName="+stateName;
+		}
+		if(districtName!=""){
+			url+="&districtName="+districtName;
+		}
+		if(cityName!=""){
+			url+="&cityName="+cityName;
+		}
+		getTotalCount(url);
+		document.getElementById("searchIframe").src="searchByCriteria?pageNo="+pageNo+url;
+		document.getElementById("pageNo").value=pageNo;
+		
+
+		if(pageNo!=1){
+			document.getElementById("previousButton").className ="pageButton";
+		}
+}
+
+var getTotalCount=function(url){
+	
+	var xmlhttp;
+	if (window.XMLHttpRequest)
+	  {// code for IE7+, Firefox, Chrome, Opera, Safari
+	  xmlhttp=new XMLHttpRequest();
+	  }
+	else
+	  {// code for IE6, IE5
+	  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	  }
+
+	xmlhttp.onreadystatechange=function()
+	  {
+	  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+	    {
+	    setPager(xmlhttp.responseText);
+	    }
+	  }
+	
+	xmlhttp.open("GET","getTotalCount?pageNo=10"+url,true);
+	xmlhttp.send();
+}
+
+var setPager=function(count){
+	var noOfPages=0; 
+	var totalCount=0;
+	totalCount=count;
+	noOfPages=totalCount/10;
+	if(totalCount%10!=0&&totalCount>9)
+		noOfPages++;
+	
+	
+	if(totalCount>10){
+		document.getElementById("nextButton").style.display="block";
+		document.getElementById("previousButton").style.display="block";
+	}
+	else{
+		document.getElementById("nextButton").style.display="none";
+		document.getElementById("previousButton").style.display="none";
+	}
+
+	var temp="";
+	
+	for(var i=noOfPages;i>=1;i--){
+		temp="<button class=pageNo onClick=setIframeSrc('"+i+"')>"+i+"</button>";
+	}
+	
+	document.getElementById("pageNo").value="1";
+	document.getElementById("maxpageNo").value=noOfPages;
+
+}
+
+var showNext=function(){
+		var currPageNo=parseInt(document.getElementById("pageNo").value);
+		var maxPageNo=parseInt(document.getElementById("maxpageNo").value);
+		
+		var bloodGroup=document.getElementById('bloodgroup').value;
+		var stateName = document.getElementById('statename').value;
+		var districtName = document.getElementById('districtname').value;
+		var cityName = document.getElementById('talukname').value;
+		var url="";
+		if(bloodGroup!=""){
+			url+="&bloodGroup="+bloodGroup;
+		}
+		if(stateName!=""){
+			url+="&stateName="+stateName;
+		}
+		if(districtName!=""){
+			url+="&districtName="+districtName;
+		}
+		if(cityName!=""){
+			url+="&cityName="+cityName;
+		}
+		
+		
+
+		if(currPageNo<maxPageNo){
+			document.getElementById("searchIframe").src="searchByCriteria?pageNo="+(currPageNo+1)+url;
+			document.getElementById("pageNo").value=currPageNo+1;
+			currPageNo++;
+			if(currPageNo==maxPageNo){
+				document.getElementById("nextButton").className +=" disable";
+			}
+		}
+		else{
+			document.getElementById("nextButton").className +=" disable";
+		}
+		
+
+		if(currPageNo!=1){
+			document.getElementById("previousButton").className ="pageButton";
+		}
+		else{
+			document.getElementById("previousButton").className +=" disable";
+		}
+}
+
+var showPrevious=function(){
+		var currPageNo=parseInt(document.getElementById("pageNo").value);
+		var maxPageNo=parseInt(document.getElementById("maxpageNo").value);
+
+		var bloodGroup=document.getElementById('bloodgroup').value;
+		var stateName = document.getElementById('statename').value;
+		var districtName = document.getElementById('districtname').value;
+		var cityName = document.getElementById('talukname').value;
+		var url="";
+		if(bloodGroup!=""){
+			url+="&bloodGroup="+bloodGroup;
+		}
+		if(stateName!=""){
+			url+="&stateName="+stateName;
+		}
+		if(districtName!=""){
+			url+="&districtName="+districtName;
+		}
+		if(cityName!=""){
+			url+="&cityName="+cityName;
+		}
+		
+		if(currPageNo!=1){
+			document.getElementById("searchIframe").src="searchByCriteria?pageNo="+(currPageNo-1)+url;
+			document.getElementById("pageNo").value=currPageNo-1;
+			currPageNo--;
+			if(currPageNo!=maxPageNo){
+				document.getElementById("previousButton").className +=" disable";
+			}
+		}
+		else{
+			document.getElementById("previousButton").className +=" disable";
+		}
+		
+		if(currPageNo<maxPageNo){
+			document.getElementById("nextButton").className ="pageButton";
+		}
+		else{
+			document.getElementById("nextButton").className +=" disable";
+		}
+}
+
+var checkButtonStyle=function(){
+		var currPageNo=parseInt(document.getElementById("pageNo").value)-1;
+		if(currPageNo==maxPageNo)
+			document.getElementById("searchIframe")
+}
+
+var showHeaderMenu=function(){
+	var height=document.getElementById("headerMenu").style.height;
+	if(parseInt(height.replace("px",""))>0){
+		document.getElementById("headerMenu").style.display='none';
+		document.getElementById("headerMenu").style.height='0px';
+	}
+	else{
+		document.getElementById("headerMenu").style.display='block';
+		document.getElementById("headerMenu").style.height='120px';
+	}
 }

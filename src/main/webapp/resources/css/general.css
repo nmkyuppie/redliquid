@@ -2,9 +2,10 @@ body {
 	padding: 0;
 	margin: 0;
 	font-family: Tahoma, Arial, sans-serif;
+	outline:none !important;
 }
 
-textarea, input, select {
+textarea, input, select, button {
 	outline: none;
 }
 
@@ -57,23 +58,29 @@ header {
 	line-height: 25px;
 	font-size: 18px;
 	background-color: #fff;
+	cursor:pointer;
 }
 
 .menu {
 	background-color: #55ACEE;
 	color: #fff;
-	max-width: 100px;
+	max-width: 200px;
 	border-radius: 3px;
 	padding: 0 10px;
 	float: right;
 	margin-left: 15px;
+	cursor:pointer;
 	margin-top: 10px;
+}
+
+.menu:hover,.menu:first-child:hover{
+	background-color:#1199ee;	
 }
 
 .menu:first-child {
 	background-color: #55ACEE;
 	color: #fff;
-	max-width: 100px;
+	max-width: 200px;
 	border-radius: 3px;
 	padding: 0 10px;
 	float: right;
@@ -93,6 +100,10 @@ header {
 	margin-right: 10px;
 	margin-top: 10px;
 	font-size: 12px;
+	cursor:pointer;
+	
+  border: none;
+  line-height: 24px;
 }
 
 .pageNo {
@@ -105,6 +116,10 @@ header {
 	margin-left: 15px;
 	margin-top: 10px;
 	font-size: 12px;
+	cursor:pointer;
+	
+  border: none;
+  line-height: 24px;
 }
 
 .pageNo:HOVER {
@@ -118,6 +133,18 @@ header {
 	margin-top: 10px;
 	font-size: 12px;
 	box-shadow:0px 20px 0px #E63386;
+}
+
+.disable{    
+	background:#ddd !important;
+	color: #666 !important;
+	border-radius:0px !important;
+	box-shadow:none !important;
+	cursor: not-allowed !important;
+}
+
+.disable:hover{    
+	box-shadow: none;
 }
 
 label {
@@ -162,8 +189,9 @@ select {
 }
 
 .search {
-	display: none;
-	margin-top: 0px;
+	display: block;
+	position: relative;
+	margin-top: 100px;
 	-webkit-transition: all 5s ease-in-out;
 	-moz-transition: all 5s ease-in-out;
 	-o-transition: all 5s ease-in-out;
@@ -246,15 +274,18 @@ textarea {
 	margin-left: 10px;
 }
 
+.searchButton:hover{
+	background-color:#1199ee;	
+}
+
 .pageContent {
 	padding: 0 10px;
 	margin-top: 100px;
 }
 
 .searchContent {
-	padding: 0 10px;
+	margin-top:15px;
 	overflow: auto;
-	margin-top: 100px;
 }
 
 .forget {
@@ -356,6 +387,13 @@ textarea {
 	width: 25%;
 }
 
+.date {
+	float: left;
+	font-size: 14px;
+	line-height: 40px;
+	width: 25%;
+}
+
 .bloodgroup {
 	background-color: #fff;
 	border-radius: 20px;
@@ -383,6 +421,77 @@ textarea {
 
 .loginuser {
 	float: right;
+<<<<<<< HEAD
+	margin-right : 15px;
+}
+
+.pageButton{
+	background-color: #E63386;
+	color: #FFF;
+	max-width: 100px;
+	border-radius: 3px;
+	padding: 5px 10px;
+	float: right;
+	margin-top:10px;
+	margin-left: 15px;
+	margin-right: 15px;
+	font-size: 12px;
+	cursor:pointer;
+	border:none;
+}
+
+.pageButton:HOVER {
+	background-color: #FFF;
+	color: #E63386;
+	max-width: 100px;
+	border-radius: 3px;
+	padding: 5px 10px;
+	float: right;
+	margin-top:10px;
+	margin-left: 15px;
+	margin-right: 15px;
+	font-size: 12px;
+	cursor:pointer;
+	box-shadow:0px 20px 0px #E63386;
+	border:none;
+}
+
+.headerMenu{
+	background-color: #e63386;
+    box-shadow: 15px 30px 10px rgba(0, 0, 0, 0.2);
+    height: 120px;
+    position: absolute;
+    right: 0px;
+    display:none;
+    top: 50px;
+    width: 200px;
+    z-index: 10;
+	-webkit-transition: all 0.01s ease-in-out;
+	-moz-transition: all 0.01s ease-in-out;
+	-o-transition: all 0.01s ease-in-out;
+	transition: all 0.01s ease-in-out;
+}
+
+.headerMenu ul{
+	cursor: pointer;
+    list-style: outside none none;
+    margin-left: -40px;
+    margin-top: inherit;
+}
+
+.headerMenu li{
+	background-color: #787878;
+    border-bottom: 2px solid #fff;
+    color: #fff;
+    cursor: pointer;
+    line-height: 40px;
+    padding-right: 15px;
+    text-align: right;
+}
+.headerMenu li:hover{
+	background-color: #484848;
+}
+=======
 }
 [data-tooltip] {
     display: inline-block;
